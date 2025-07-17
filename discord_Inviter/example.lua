@@ -3,7 +3,7 @@ local discordInviter = loadstring(game:HttpGet("https://raw.githubusercontent.co
 local get_inviteData_1 = discordInviter.get_inviteData("https://discord.gg/beluga")
 
 for key, value in pairs(get_inviteData_1) do
-     print(key .. "=" .. value)
+     print(key, value)
 end
 
 local get_inviteData_2 = discordInviter.get_inviteData("https://discord.gg/beluga", {
@@ -13,7 +13,7 @@ local get_inviteData_2 = discordInviter.get_inviteData("https://discord.gg/belug
 })
 
 for key, value in pairs(get_inviteData_2) do
-     print(key .. "=" .. tostring(value))
+     print(key, value)
 end
 
 discordInviter.get_joinRPC("https://discord.gg/beluga") -- it will return discord client RPC to join the server
