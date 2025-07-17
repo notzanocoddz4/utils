@@ -11,44 +11,21 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/notzanocoddz4/utils/m
 ```lua
 local discordInviter = loadstring(game:HttpGet("https://raw.githubusercontent.com/notzanocoddz4/utils/main/discord_Inviter/src.luau"))()
 
-local get_inviteData_1 = discordInviter.get_inviteData("https://discord.gg/zr575byvYK")
+local get_inviteData_1 = discordInviter.get_inviteData("https://discord.gg/beluga")
 
-print(get_inviteData_1) --[[
-     Output:
-     {
-          code = data.code,
-          guild = {
-               id = data.guild.id,
-               name = data.guild.name,
-               description = data.guild.description,
-               icon = data.guild.icon,
-               splash = data.guild.splash,
-               banner = data.guild.banner,
-          },
-     }
-]]
+for key, value in pairs(get_inviteData_1) do
+     print(key .. "=" .. value)
+end
 
-local get_inviteData_2 = discordInviter.get_inviteData("https://discord.gg/zr575byvYK", {
+local get_inviteData_2 = discordInviter.get_inviteData("https://discord.gg/beluga", {
      with_total_members = true,
      with_online_members = true,
+     with_guild = true,
 })
 
-print(get_inviteData_2) --[[
-     Output:
-     {
-          code = data.code,
-          guild = {
-               id = data.guild.id,
-               name = data.guild.name,
-               description = data.guild.description,
-               icon = data.guild.icon,
-               splash = data.guild.splash,
-               banner = data.guild.banner,
-          },
-          total_member_count = data.approximate_member_count,
-          online_member_count = data.approximate_online_count,
-     }
-]]
+for key, value in pairs(get_inviteData_2) do
+     print(key .. "=" .. value)
+end
 
-discordInviter.get_joinRPC("https://discord.gg/zr575byvYK") -- it will return discord client RPC to join the server
+discordInviter.get_joinRPC("https://discord.gg/beluga") -- it will return discord client RPC to join the server
 ```

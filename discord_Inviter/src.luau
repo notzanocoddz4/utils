@@ -52,20 +52,21 @@ local function generate_UUID()
      return format('%s-%s-%s-%s-%s', a, b, c, d, e);
 end
 
-export type Prams = {
+export type Params = {
      with_total_members: boolean?,
      with_online_members: boolean?,
 }
 
-discordInviter.get_inviteData = function(url, params: Prams)
+discordInviter.get_inviteData = function(url, params: Params)
      if not url or type(url) ~= 'string' then
           Console.warn('Invalid URL provided');
-          return nil;
      end
 
-     local code = getInviteCodeFromUrl(url);
+     params = params or {}
+
+     local code = getInviteCodeFromUrl(url)
      local s, r = pcall(function()
-          local response = request({
+          return request({
                Url = 'https://discord.com/api/v9/invites/' .. code .. '?with_counts=true',
                Method = 'GET',
                Headers = {
@@ -75,48 +76,55 @@ discordInviter.get_inviteData = function(url, params: Prams)
      end)
 
      if s and r then
-          local data = HttpService:JSONDecode(r.Body);
+          local data = HttpService:JSONDecode(r.Body)
 
           local result = {
                code = data.code,
-               guild = {
+               guild = nil,
+               total_member_count = nil,
+               online_member_count = nil,
+          }
+
+          if params.with_guild == true then
+               result.guild = {
                     id = data.guild.id,
                     name = data.guild.name,
                     description = data.guild.description,
                     icon = data.guild.icon,
                     splash = data.guild.splash,
                     banner = data.guild.banner,
-               },
-          };
-
-          if params.with_total_members then
-               result.total_member_count = data.approximate_member_count;
+               }
           end
-          if params.with_online_members then
-               result.online_member_count = data.approximate_online_count;
+          if params.with_total_members == true then
+               result.total_member_count = data.approximate_member_count
+          end
+          if params.with_online_members == true then
+               result.online_member_count = data.approximate_persence_count
           end
 
-          return result;
+          return {
+               code = result.code,
+               guild = result.guild,
+               total_member_count = result.total_member_count,
+               online_member_count = result.online_member_count,
+          }
      else
-          warn('Failed to fetch info ' .. tostring(r));
-          return nil;
+          warn('Failed to fetch info ' .. tostring(r))
      end
 end
 
 discordInviter.get_joinRPC = function(url)
      if not url or type(url) ~= 'string' then
           Console.warn('Invalid URL provided');
-          return nil;
      end
 
      if Platform ~= Enum.Platform.Windows then
           Console.warn('Join RPC is only supported on Windows platform');
-          return nil;
      end
      
-     local code = getInviteCodeFromUrl(url);
+     local code = getInviteCodeFromUrl(url)
      local s, r = pcall(function()
-          local response = request({
+          request({
                Url = 'http://127.0.0.1:6463/rpc?v=1',
                Method = 'POST',
                Headers = {
