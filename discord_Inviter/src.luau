@@ -120,6 +120,7 @@ discordInviter.get_joinRPC = function(url)
 
      if Platform ~= Enum.Platform.Windows then
           Console.warn('Join RPC is only supported on Windows platform');
+          return
      end
      
      local code = getInviteCodeFromUrl(url)
