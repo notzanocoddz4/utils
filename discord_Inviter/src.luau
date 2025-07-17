@@ -1,4 +1,5 @@
 local HttpService = game:GetService('HttpService');
+local Platform = game:GetService('UserInputService'):GetPlatform();
 
 local discordInviter = {};
 
@@ -108,6 +109,11 @@ discordInviter.get_joinRPC = function(url)
           return nil;
      end
 
+     if Platform ~= Enum.Platform.Windows then
+          Console.warn('Join RPC is only supported on Windows platform');
+          return nil;
+     end
+     
      local code = getInviteCodeFromUrl(url);
      local s, r = pcall(function()
           local response = request({

@@ -1,14 +1,3 @@
-# utils
-
-## [🛠️ Discord Inviter](/discord_Inviter)
-
-**Soruce:**
-```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/notzanocoddz4/utils/main/discord_Inviter/src.luau"))()
-```
-
-**Example:**
-```lua
 local discordInviter = loadstring(game:HttpGet("https://raw.githubusercontent.com/notzanocoddz4/utils/main/discord_Inviter/src.luau"))()
 
 local get_inviteData_1 = discordInviter.get_inviteData("https://discord.gg/zr575byvYK")
@@ -51,4 +40,3 @@ print(get_inviteData_2) --[[
 ]]
 
 discordInviter.get_joinRPC("https://discord.gg/zr575byvYK") -- it will return discord client RPC to join the server
-```
