@@ -81,9 +81,6 @@ discordInviter.get_inviteData = function(url, params: Params)
 
           local result = {
                code = data.code,
-               guild = nil,
-               total_member_count = nil,
-               online_member_count = nil,
           }
 
           if params.with_guild == true then
