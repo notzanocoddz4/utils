@@ -60,6 +60,7 @@ export type Params = {
 discordInviter.get_inviteData = function(url, params: Params)
      if not url or type(url) ~= 'string' then
           Console.warn('Invalid URL provided');
+          return
      end
 
      params = params or {}
@@ -116,6 +117,7 @@ end
 discordInviter.get_joinRPC = function(url)
      if not url or type(url) ~= 'string' then
           Console.warn('Invalid URL provided');
+          return
      end
 
      if Platform ~= Enum.Platform.Windows then
