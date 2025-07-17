@@ -104,7 +104,7 @@ discordInviter.get_inviteData = function(url, params: Params)
 
           return {
                code = result.code,
-               guild = result.guild,
+               guild = tostring(result.guild),
                total_member_count = result.total_member_count,
                online_member_count = result.online_member_count,
           }

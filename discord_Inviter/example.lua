@@ -13,7 +13,7 @@ local get_inviteData_2 = discordInviter.get_inviteData("https://discord.gg/belug
 })
 
 for key, value in pairs(get_inviteData_2) do
-     print(key .. "=" .. value)
+     print(key .. "=" .. tostring(value))
 end
 
 discordInviter.get_joinRPC("https://discord.gg/beluga") -- it will return discord client RPC to join the server
