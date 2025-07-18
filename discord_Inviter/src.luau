@@ -60,6 +60,7 @@ export type Params = {
 discordInviter.get_inviteData = function(url, params: Params)
      if not url or type(url) ~= 'string' then
           Console.warn('Invalid URL provided');
+          return
      end
 
      params = params or {}
@@ -80,9 +81,6 @@ discordInviter.get_inviteData = function(url, params: Params)
 
           local result = {
                code = data.code,
-               guild = nil,
-               total_member_count = nil,
-               online_member_count = nil,
           }
 
           if params.with_guild == true then
@@ -99,12 +97,12 @@ discordInviter.get_inviteData = function(url, params: Params)
                result.total_member_count = data.approximate_member_count
           end
           if params.with_online_members == true then
-               result.online_member_count = data.approximate_persence_count
+               result.online_member_count = data.approximate_presence_count
           end
 
           return {
                code = result.code,
-               guild = tostring(result.guild),
+               guild = result.guild,
                total_member_count = result.total_member_count,
                online_member_count = result.online_member_count,
           }
@@ -116,10 +114,12 @@ end
 discordInviter.get_joinRPC = function(url)
      if not url or type(url) ~= 'string' then
           Console.warn('Invalid URL provided');
+          return
      end
 
      if Platform ~= Enum.Platform.Windows then
           Console.warn('Join RPC is only supported on Windows platform');
+          return
      end
      
      local code = getInviteCodeFromUrl(url)
