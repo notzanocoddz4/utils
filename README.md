@@ -4,7 +4,7 @@
 
 **Soruce:**
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/notzanocoddz4/utils/main/discord_Inviter/src.luau"))()
+local discordInviter = loadstring(game:HttpGet("https://raw.githubusercontent.com/notzanocoddz4/utils/main/discord_Inviter/src.luau"))()
 ```
 
 **Example:**
