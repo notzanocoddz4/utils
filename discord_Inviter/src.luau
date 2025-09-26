@@ -53,6 +53,7 @@ local function generate_UUID()
 end
 
 export type Params = {
+     with_guild: boolean?,
      with_total_members: boolean?,
      with_online_members: boolean?,
 }
