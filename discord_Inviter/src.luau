@@ -4,7 +4,6 @@ local Platform = game:GetService("UserInputService"):GetPlatform()
 local discordInviter = {}
 
 local format = string.format
-local inviteCache = {}
 
 local Console = {
 	print = function(...) print("[discord-inviter]", ...) end,
@@ -39,8 +38,7 @@ export type Params = {
 	with_online_members: boolean?,
 }
 
--- Async + caching
-discordInviter.get_inviteData = function(url: string, params: Params, callback: (any) -> ())
+discordInviter.get_inviteData = function(url: string, params: Params)
 	if not url or type(url) ~= "string" then
 		Console.warn("Invalid URL provided")
 		return
@@ -50,12 +48,6 @@ discordInviter.get_inviteData = function(url: string, params: Params, callback: 
 	local code = getInviteCodeFromUrl(url)
 	if not code then
 		Console.warn("Could not extract invite code")
-		return
-	end
-
-	-- Cached?
-	if inviteCache[code] then
-		task.spawn(callback, inviteCache[code])
 		return
 	end
 
@@ -94,17 +86,12 @@ discordInviter.get_inviteData = function(url: string, params: Params, callback: 
 			if params.with_online_members then
 				result.online_member_count = data.approximate_presence_count
 			end
-
-			inviteCache[code] = result
-			callback(result)
 		else
 			Console.warn("Failed to fetch invite: " .. tostring(r))
-			callback(nil)
 		end
 	end)
 end
 
--- Async RPC join
 discordInviter.get_joinRPC = function(url: string)
 	if not url or type(url) ~= "string" then
 		Console.warn("Invalid URL provided")
